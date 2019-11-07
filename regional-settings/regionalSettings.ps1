@@ -4,7 +4,7 @@
 ######################################
 
 #variables
-$regionalsettingsURL = "https://raw.githubusercontent.com/balticapprenticeships/azure-extensions/master/gbRegional.xml"
+$regionalsettingsURL = "https://raw.githubusercontent.com/balticapprenticeships/azure-extensions/master/regional-settings/gbRegional.xml"
 $RegionalSettings = "D:\gbRegion.xml"
 
 
