@@ -1,33 +1,3 @@
-<#
-Group [string] #ResourceName
-{
-    GroupName = [string]
-    [ Credential = [PSCredential] ]
-    [ Description = [string[]] ]
-    [ Members = [string[]] ]
-    [ MembersToExclude = [string[]] ]
-    [ MembersToInclude = [string[]] ]
-    [ DependsOn = [string[]] ]
-    [ Ensure = [string] { Absent | Present }  ]
-    [ PsDscRunAsCredential = [PSCredential] ]
-}
-
-User [string] #ResourceName
-{
-    UserName = [string]
-    [ Description = [string] ]
-    [ Disabled = [bool] ]
-    [ FullName = [string] ]
-    [ Password = [PSCredential] ]
-    [ PasswordChangeNotAllowed = [bool] ]
-    [ PasswordChangeRequired = [bool] ]
-    [ PasswordNeverExpires = [bool] ]
-    [ DependsOn = [string[]] ]
-    [ Ensure = [string] { Absent | Present }  ]
-    [ PsDscRunAsCredential = [PSCredential] ]
-}
-#>
-
 Configuration BaLabServerCfg {
 
     Param (
@@ -38,6 +8,20 @@ Configuration BaLabServerCfg {
     Import-DscResource -ModuleName PSDesiredStateConfiguration
 
     Node $nodeName {
+
+        # This resource block ensures hat Hyper-V feature is enabled
+        WindowsFeature Hyper-V {
+            Name = "Hyper-V"
+            IncludeAllSubFeature = $true
+            Ensure = "Present"
+        }
+
+        # This resource block ensures hat Hyper-V feature is enabled
+        WindowsFeature Hyper-V-Powershell {
+            Name = "Hyper-V-Powershell"
+            IncludeAllSubFeature = $true
+            Ensure = "Present"
+        }
 
         # This resource block creates the user
         User Apprentice {
