@@ -1,4 +1,4 @@
-Configuration BaLabServerCfg {
+Configuration baLabServerCfg {
 
     Param (
         [string]$nodeName,
@@ -8,20 +8,6 @@ Configuration BaLabServerCfg {
     Import-DscResource -ModuleName PSDesiredStateConfiguration
 
     Node $nodeName {
-
-        # This resource block ensures hat Hyper-V feature is enabled
-        WindowsFeature Hyper-V {
-            Name = "Hyper-V"
-            IncludeAllSubFeature = $true
-            Ensure = "Present"
-        }
-
-        # This resource block ensures hat Hyper-V feature is enabled
-        WindowsFeature Hyper-V-Powershell {
-            Name = "Hyper-V-Powershell"
-            IncludeAllSubFeature = $true
-            Ensure = "Present"
-        }
 
         # This resource block creates the user
         User Apprentice {
@@ -50,6 +36,20 @@ Configuration BaLabServerCfg {
             MembersToInclude = "Apprentice" #Adds the selected user
             DependsOn = "[User]Apprentice" #Ensures that the user is created before added to the group
             Ensure = "Present" #Ensures that the group is present
+        }
+
+        # This resource block ensures hat Hyper-V feature is enabled
+        WindowsFeature Hyper-V {
+            Name = "Hyper-V"
+            IncludeAllSubFeature = $true
+            Ensure = "Present"
+        }
+
+        # This resource block ensures hat Hyper-V feature is enabled
+        WindowsFeature Hyper-V-Powershell {
+            Name = "Hyper-V-Powershell"
+            IncludeAllSubFeature = $true
+            Ensure = "Present"
         }
     }
 }
