@@ -31,7 +31,10 @@ User [string] #ResourceName
 Configuration baLabServerCfg {
 
     Param (
+        [ValidateNotNullOrEmpty()]
         [string]$nodeName,
+
+        [ValidateNotNullOrEmpty()]
         [System.Management.Automation.PSCredential]$credential
     )
 
