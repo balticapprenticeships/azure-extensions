@@ -1,8 +1,17 @@
 Configuration baLabServerCfg {
 
     Param (
-        [string]$nodeName,
-        [securestring]$passwordCred
+        # Sets the Computer/Node name
+        [Parameter(Mandatory=$true)]
+        [ValidateNotNullOrEmpty()]
+        [string]
+        $nodeName,
+
+        # Sets the user credentials
+        [Parameter(Mandatory=$true)]
+        [ValidateNotNullOrEmpty()]
+        [PSCredential]
+        $userCred
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
@@ -11,11 +20,11 @@ Configuration baLabServerCfg {
 
         # This resource block creates the user
         User Apprentice {
-            UserName = "Apprentice"
+            UserName = $userCred.UserName
             Description = "Baltic Apprentice"
             Disabled = $false
             FullName = "Baltic Apprentice"
-            Password = $passwordCred # This needs to be a credentials object
+            Password = $userCred.Password # This needs to be a credentials object
             PasswordChangeNotAllowed = $false
             PasswordChangeRequired = $false
             PasswordNeverExpires = $true
