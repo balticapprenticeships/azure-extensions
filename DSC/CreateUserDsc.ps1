@@ -28,11 +28,11 @@ User [string] #ResourceName
 }
 #>
 
-Configuration BaLabServerCfg {
+Configuration baLabServerCfg {
 
     Param (
         [string]$nodeName,
-        [securestring]$passwordCred
+        [System.Management.Automation.PSCredential]$credential
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
@@ -41,31 +41,15 @@ Configuration BaLabServerCfg {
 
         # This resource block creates the user
         User Apprentice {
-            UserName = "Apprentice"
+            UserName = $credential
             Description = "Baltic Apprentice"
             Disabled = $false
             FullName = "Baltic Apprentice"
-            Password = $passwordCred # This needs to be a credentials object
+            Password = $credential # This needs to be a credentials object
             PasswordChangeNotAllowed = $false
             PasswordChangeRequired = $false
             PasswordNeverExpires = $true
             Ensure = "Present" # To ensure that the account does not exist and is created
-        }
-
-        # This resource block adds the user to a group
-        Group AddUserToLocalRemoteDesktopUsersGroup {
-            GroupName = "Remote Desktop Users" #Group name
-            MembersToInclude = "Apprentice" #Adds the selected user
-            DependsOn = "[User]Apprentice" #Ensures that the user is created before added to the group
-            Ensure = "Present" #Ensures that the group is present
-        }
-
-        # This resource block adds the user to a group
-        Group AddUserToLocalHypervAdministrators {
-            GroupName = "Hyper-V Administrators" #Group name
-            MembersToInclude = "Apprentice" #Adds the selected user
-            DependsOn = "[User]Apprentice" #Ensures that the user is created before added to the group
-            Ensure = "Present" #Ensures that the group is present
         }
     }
 }
