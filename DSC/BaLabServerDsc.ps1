@@ -7,9 +7,9 @@ Configuration baLabServerCfg {
         [string]
         $nodeName,
 
-        # Sets the user credentials
-        [Parameter(Mandatory=$true)]
-        [PSCredential]
+        # User credentials
+        [Parameter]
+        [System.Management.Automation.PSCredential]
         $credential
     )
 
@@ -61,3 +61,4 @@ Configuration baLabServerCfg {
         }
     }
 }
+

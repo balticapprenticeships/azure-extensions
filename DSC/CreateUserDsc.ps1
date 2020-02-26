@@ -44,11 +44,11 @@ Configuration baLabServerCfg {
 
         # This resource block creates the user
         User Apprentice {
-            UserName = $credential
+            UserName = $credential.UserName
             Description = "Baltic Apprentice"
             Disabled = $false
             FullName = "Baltic Apprentice"
-            Password = $credential # This needs to be a credentials object
+            Password = $credential.Password # This needs to be a credentials object
             PasswordChangeNotAllowed = $false
             PasswordChangeRequired = $false
             PasswordNeverExpires = $true
