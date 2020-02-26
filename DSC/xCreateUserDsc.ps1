@@ -3,8 +3,8 @@ Configuration xUser_CreateUserConfig {
 
     Param (
 
-        [Parameter]
-        [string[]]
+        [Parameter(Mandatory = $true)]
+        [string]
         $nodeName,
 
         [Parameter(Mandatory = $true)]
