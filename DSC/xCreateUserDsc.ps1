@@ -18,8 +18,8 @@ Configuration xUser_CreateUserConfig {
     Node $nodeName {
         xUser 'CreateUserAccount' {
             Ensure = 'Present'
-            UserName = Split-Path -Path $Credentials.UserName -Leaf
-            Password = $Credentials
+            UserName = Split-Path -Path $Credential.UserName -Leaf
+            Password = $Credential
         }
     }
     
