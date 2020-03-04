@@ -1,16 +1,16 @@
-Configuration baLabServerCfg {
+Configuration BaLabServerCfg {
 
     Param (
         # Sets the Computer/Node name
         [Parameter(Mandatory=$true)]
-        [ValidateNotNullOrEmpty()]
         [string]
         $nodeName,
 
         # User credentials
-        [Parameter]
+        [Parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
-        $credential
+        [System.Management.Automation.Credential()]
+        $Credential
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
@@ -18,46 +18,55 @@ Configuration baLabServerCfg {
     Node $nodeName {
 
         # This resource block creates the user
-        User Apprentice {
-            UserName = $credential.UserName
+        User "CreateUserAccount" {
+            UserName = Split-Path -Path $Credential.UserName -Leaf
             Description = "Baltic Apprentice"
             Disabled = $false
             FullName = "Baltic Apprentice"
-            Password = $credential.Password # This needs to be a credentials object
-            PasswordChangeNotAllowed = $false
+            Password = $Credential # This needs to be a credentials object
+            PasswordChangeNotAllowed = $true
             PasswordChangeRequired = $false
             PasswordNeverExpires = $true
             Ensure = "Present" # To ensure that the account does not exist and is created
         }
 
         # This resource block adds the user to a group
-        Group AddUserToLocalRemoteDesktopUsersGroup {
+        Group "AddUserToLocalRemoteDesktopUsersGroup" {
             GroupName = "Remote Desktop Users" #Group name
             MembersToInclude = "Apprentice" #Adds the selected user
-            DependsOn = "[User]Apprentice" #Ensures that the user is created before added to the group
+            DependsOn = "[User]CreateUserAccount" #Ensures that the user is created before added to the group
             Ensure = "Present" #Ensures that the group is present
         }
 
         # This resource block adds the user to a group
-        Group AddUserToLocalHypervAdministrators {
+        Group "AddUserToLocalHypervAdministrators" {
             GroupName = "Hyper-V Administrators" #Group name
             MembersToInclude = "Apprentice" #Adds the selected user
-            DependsOn = "[User]Apprentice" #Ensures that the user is created before added to the group
+            DependsOn = "[User]CreateUserAccount" #Ensures that the user is created before added to the group
             Ensure = "Present" #Ensures that the group is present
         }
 
         # This resource block ensures hat Hyper-V feature is enabled
-        WindowsFeature Hyper-V {
+        WindowsFeature "HyperV" {
             Name = "Hyper-V"
             IncludeAllSubFeature = $true
             Ensure = "Present"
         }
 
         # This resource block ensures hat Hyper-V feature is enabled
-        WindowsFeature Hyper-V-Powershell {
+        WindowsFeature "HyperVTools" {
+            Name = "Hyper-V-Tools"
+            IncludeAllSubFeature = $true
+            Ensure = "Present"
+            DependsOn = "[WindowsFeature]Hyper-V"
+        }
+
+        # This resource block ensures hat Hyper-V feature is enabled
+        WindowsFeature "HyperVPowershell" {
             Name = "Hyper-V-Powershell"
             IncludeAllSubFeature = $true
             Ensure = "Present"
+            DependsOn = "[WindowsFeature]Hyper-V"
         }
     }
 }
