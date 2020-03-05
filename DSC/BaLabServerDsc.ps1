@@ -58,7 +58,7 @@ Configuration BaLabServerCfg {
             Name = "Hyper-V-Tools"
             IncludeAllSubFeature = $true
             Ensure = "Present"
-            DependsOn = "[WindowsFeature]Hyper-V"
+            DependsOn = "[WindowsFeature]HyperV"
         }
 
         # This resource block ensures hat Hyper-V feature is enabled
@@ -66,7 +66,7 @@ Configuration BaLabServerCfg {
             Name = "Hyper-V-Powershell"
             IncludeAllSubFeature = $true
             Ensure = "Present"
-            DependsOn = "[WindowsFeature]Hyper-V"
+            DependsOn = "[WindowsFeature]HyperV"
         }
     }
 }
