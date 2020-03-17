@@ -71,8 +71,7 @@ Configuration xBaTestClientCfg {
         $Credential
     )
 
-    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration
+    Import-DscResource -ModuleName ComputermanagementDsc, xPSDesiredStateConfiguration
 
     Node localhost {
 
@@ -80,8 +79,16 @@ Configuration xBaTestClientCfg {
             RebootNodeIfNeeded = $true
         }
 
+        # This resource block set the Execution Policy for the curent user
+        PowerShellExecutionPolicy "ExecutionPolicyCurrentUser" 
+        {
+            ExecutionPolicyScope = "CurrentUser"
+            ExecutionPolicy = "RemoteSigned"
+        }
+
         # This resource block create a local user
-        xUser "CreateUserAccount" {
+        xUser "CreateUserAccount" 
+        {
             Ensure = "Present"
             UserName = Split-Path -Path $Credential.UserName -Leaf
             Password = $Credential
