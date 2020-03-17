@@ -71,6 +71,7 @@ Configuration xBaTestClientCfg {
         $Credential
     )
 
+    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
 
     Node localhost {
