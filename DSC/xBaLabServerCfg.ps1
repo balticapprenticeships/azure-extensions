@@ -86,6 +86,13 @@ Configuration xBaTestClientCfg {
             ExecutionPolicy = "RemoteSigned"
         }
 
+        # This resource block set the Execution Policy for the local machine
+        PowerShellExecutionPolicy "ExecutionPolicyLocalMachine" 
+        {
+            ExecutionPolicyScope = "LocalMachine"
+            ExecutionPolicy = "RemoteSigned"
+        }
+
         # This resource block create a local user
         xUser "CreateUserAccount" 
         {
