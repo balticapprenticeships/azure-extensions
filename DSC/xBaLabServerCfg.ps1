@@ -32,7 +32,7 @@ Configuration xBaLabServerWinCfg {
         }
 
         # This resource block adds user to a spacific group
-        xGroup "AddRemoteDesktopUserGroup"
+        xGroup "AddToRemoteDesktopUserGroup"
         {
             GroupName = "Remote Desktop Users"
             Ensure = "Present"
@@ -41,7 +41,7 @@ Configuration xBaLabServerWinCfg {
         }
 
         # This resource block adds user to a spacific group
-        xGroup "AddHyperVAdministratorGroup"
+        xGroup "AddToHyperVAdministratorGroup"
         {
             GroupName = "Hyper-V Administrators"
             Ensure = "Present"
