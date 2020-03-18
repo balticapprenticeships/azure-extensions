@@ -1,4 +1,4 @@
-Configuration xBaLabServerCfg {
+Configuration xBaLabServerWinCfg {
     [CmdletBinding()]
 
     Param (
@@ -32,7 +32,7 @@ Configuration xBaLabServerCfg {
         }
 
         # This resource block adds user to a spacific group
-        xGroup "AddRemoteDesktopUser"
+        xGroup "AddRemoteDesktopUserGroup"
         {
             GroupName = "Remote Desktop Users"
             Ensure = "Present"
@@ -41,7 +41,7 @@ Configuration xBaLabServerCfg {
         }
 
         # This resource block adds user to a spacific group
-        xGroup "AddHyperVAdministrator"
+        xGroup "AddHyperVAdministratorGroup"
         {
             GroupName = "Hyper-V Administrators"
             Ensure = "Present"
@@ -79,20 +79,6 @@ Configuration xBaTestClientCfg {
             RebootNodeIfNeeded = $true
         }
 
-        # This resource block set the Execution Policy for the curent user
-        PowerShellExecutionPolicy "ExecutionPolicyCurrentUser" 
-        {
-            ExecutionPolicyScope = "CurrentUser"
-            ExecutionPolicy = "RemoteSigned"
-        }
-
-        # This resource block set the Execution Policy for the local machine
-        PowerShellExecutionPolicy "ExecutionPolicyLocalMachine" 
-        {
-            ExecutionPolicyScope = "LocalMachine"
-            ExecutionPolicy = "RemoteSigned"
-        }
-
         # This resource block create a local user
         xUser "CreateUserAccount" 
         {
@@ -107,9 +93,18 @@ Configuration xBaTestClientCfg {
         }
 
         # This resource block adds user to a spacific group
-        xGroup "AddRemoteDesktopUser"
+        xGroup "AddToRemoteDesktopUserGroup"
         {
             GroupName = "Remote Desktop Users"
+            Ensure = "Present"
+            MembersToInclude = "Apprentice"
+            DependsOn = "[xUser]CreateUserAccount"
+        }
+
+        # This resource block adds user to a spacific group
+        xGroup "AddToUsersGroup"
+        {
+            GroupName = "Users"
             Ensure = "Present"
             MembersToInclude = "Apprentice"
             DependsOn = "[xUser]CreateUserAccount"
