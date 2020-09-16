@@ -155,15 +155,6 @@ Configuration xBaLabWinClientDipCfg {
         }
 
         # This resource block adds user to a spacific group
-        xGroup "AddToUsersGroup"
-        {
-            GroupName = "Users"
-            Ensure = "Present"
-            MembersToInclude = "Apprentice"
-            DependsOn = "[xUser]CreateUserAccount"
-        }
-
-        # This resource block adds user to a spacific group
         xGroup "AddToAdministratorsGroup"
         {
             GroupName = "Administrators"
