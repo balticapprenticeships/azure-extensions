@@ -1,3 +1,9 @@
+################################################################
+# Script to configure Windows Client lab environment using DSC #
+# Author: Chris Langford                                       #
+# Version: 2.2.1                                               #
+################################################################
+
 Configuration xBaLabWinServerCfg {
     [CmdletBinding()]
 

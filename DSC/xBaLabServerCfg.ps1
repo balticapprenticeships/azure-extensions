@@ -1,3 +1,9 @@
+################################################################
+# Script to configure Windows Server lab environment using DSC #
+# Author: Chris Langford                                       #
+# Version: 2.2.1                                               #
+################################################################
+
 Configuration xBaLabServerWinCfg {
     [CmdletBinding()]
 
