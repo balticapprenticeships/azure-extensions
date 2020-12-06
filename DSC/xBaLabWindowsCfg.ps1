@@ -36,7 +36,7 @@ Configuration xBaLabWinServerCfg {
         {
             GroupName = "Remote Desktop Users"
             Ensure = "Present"
-            MembersToInclude = "Apprentice"
+            MembersToInclude = Split-Path -Path $Credential.UserName -Leaf
             DependsOn = "[xUser]CreateUserAccount"
         }
 
@@ -45,7 +45,7 @@ Configuration xBaLabWinServerCfg {
         {
             GroupName = "Hyper-V Administrators"
             Ensure = "Present"
-            MembersToInclude = "Apprentice"
+            MembersToInclude = Split-Path -Path $Credential.UserName -Leaf
             DependsOn = "[xUser]CreateUserAccount"
         }
 
@@ -97,7 +97,7 @@ Configuration xBaLabWinClientCfg {
         {
             GroupName = "Remote Desktop Users"
             Ensure = "Present"
-            MembersToInclude = "Apprentice"
+            MembersToInclude = Split-Path -Path $Credential.UserName -Leaf
             DependsOn = "[xUser]CreateUserAccount"
         }
 
@@ -106,7 +106,7 @@ Configuration xBaLabWinClientCfg {
         {
             GroupName = "Users"
             Ensure = "Present"
-            MembersToInclude = "Apprentice"
+            MembersToInclude = Split-Path -Path $Credential.UserName -Leaf
             DependsOn = "[xUser]CreateUserAccount"
         }
 
@@ -150,7 +150,7 @@ Configuration xBaLabWinClientDipCfg {
         {
             GroupName = "Remote Desktop Users"
             Ensure = "Present"
-            MembersToInclude = "Apprentice"
+            MembersToInclude = Split-Path -Path $Credential.UserName -Leaf
             DependsOn = "[xUser]CreateUserAccount"
         }
 
@@ -159,7 +159,7 @@ Configuration xBaLabWinClientDipCfg {
         {
             GroupName = "Administrators"
             Ensure = "Present"
-            MembersToInclude = "Apprentice"
+            MembersToInclude = Split-Path -Path $Credential.UserName -Leaf
             DependsOn = "[xUser]CreateUserAccount"
         }
 

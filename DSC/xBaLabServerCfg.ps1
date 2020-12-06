@@ -97,7 +97,7 @@ Configuration xBaTestClientCfg {
         {
             GroupName = "Remote Desktop Users"
             Ensure = "Present"
-            MembersToInclude = "Apprentice"
+            MembersToInclude = Split-Path -Path $Credential.UserName -Leaf
             DependsOn = "[xUser]CreateUserAccount"
         }
 
@@ -106,7 +106,7 @@ Configuration xBaTestClientCfg {
         {
             GroupName = "Users"
             Ensure = "Present"
-            MembersToInclude = "Apprentice"
+            MembersToInclude = Split-Path -Path $Credential.UserName -Leaf
             DependsOn = "[xUser]CreateUserAccount"
         }
 
